@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template</title>
+    <link rel="icon" type="image/jpg" href="https://www.google.com/s2/u/0/favicons?domain=css-tricks.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="header">
+            <h1>Deck of Cards</h1>
+        </div>
+        <div class="button-group">
+            <button class="button-34" id="getDeck-btn" onclick=fetchNewDeck()>Get a new deck</button>
+            <button class="button-34" id="drawCards-btn" onclick=drawCards() disabled>Draw cards</button>
+        </div>
+        <div class="deck-of-cards" id='deck-img' style=display:none>
+            <img src="https://static.thenounproject.com/png/117895-200.png" style="width:100px;height:100px">
+        </div>
+        <div class="loader-gif" id="loader" style=display:none>
+            <p>Drawing cards...</p>
+            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/cb3ad260231549.5a4335f42eb64.gif" style="width:200px;height:200px;" >
+        </div>
+        <div class="list-container">
+            <div class="list">
+                <h3>Spades:</h3>
+                <div class="prettyArr" id="spades-arr"></div>
+            </div>
+            <div class="list">
+                <h3>Clubs:</h3>
+                <div class="prettyArr" id="clubs-arr"></div>
+            </div>
+            <div class="list">
+                <h3>Hearts:</h3>
+                <div class="prettyArr" id="hearts-arr"></div>
+            </div>
+            <div class="list">
+                <h3>Diamonds:</h3>
+                <div class="prettyArr" id="diamonds-arr"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>

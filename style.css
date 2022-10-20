@@ -1,0 +1,87 @@
+html {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.main-container {
+    width: 100%;
+    padding: 50px;
+    /* background-color: rgb(181, 233, 188); */
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+}
+
+/* CSS */
+.button-34 {
+  background: #2B4BFF;
+  border-radius: 999px;
+  box-shadow: #2B4BFF 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+  border: 0;
+  margin: 10px;
+}
+
+.button-34:disabled{
+    background: #afb1b8;
+    box-shadow: #bcc3ee 0 10px 20px -10px; 
+    cursor: not-allowed;
+}
+
+.deck-of-cards {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.loader-gif {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.prettyArr {
+    margin-left: 10px;
+    font-weight: 600;
+}
+.list {
+    display: flex;
+    align-items: center;
+}
+.list-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 10px;
+    /* background-color: #2B4BFF; */
+    box-shadow: #686a74 0px 5px 15px -5px
+}
