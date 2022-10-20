@@ -1,12 +1,14 @@
 const getDeckButton = document.getElementById('.getDeck-btn')
 const drawCardsButton = document.getElementById('.drawCards-btn')
 
+//for sorting card values
 let correctOrder = ["ACE", '2', '3', '4', '5', '6', '7', '8', '9', '10', "JACK", "QUEEN", "KING"];
-const sortCards = (values) => {
+const sortCards = values => {
     values.sort((a, b) => correctOrder.indexOf(a) - correctOrder.indexOf(b))
 }
 
-const toggleButton = (id) =>{
+//show/hide buttons & images : not necesary for the original project requirements, added for ease of UI
+const toggleButton = id => {
     let x = document.getElementById(id);
     if(x.disabled === true){
         x.removeAttribute('disabled')
@@ -15,7 +17,7 @@ const toggleButton = (id) =>{
     }
 }
 
-const toggleLoader = (command) => {
+const toggleLoader = command => {
     let x = document.getElementById('loader');
     if(command === 'start'){
         x.style.display = 'flex'
@@ -24,11 +26,9 @@ const toggleLoader = (command) => {
     }
 }
 
-const showDeckImg = () => {
-    document.getElementById('deck-img').style.display = 'flex'
-}
+const showDeckImg = () => document.getElementById('deck-img').style.display = 'flex'
 
-// add functionality to the addcards function to populate the image from each card. could be cool.
+//fucntion for adding cards of a specific suit to the corresponding deck
 const addCards = function(card) {
     if(this.hasQueen === false){
         this.values.push(card.value)
@@ -38,37 +38,37 @@ const addCards = function(card) {
         console.log('QUEEN FOUND', this)
         this.hasQueen = true
     }
-    document.getElementById(`${this.name}-arr`).innerHTML = JSON.stringify(this.values)
+    document.getElementById(`${this.suit}-arr`).innerHTML = JSON.stringify(this.values)
 }
 
 let spadesDeck = {
     hasQueen: false,
-    name: "spades",
+    suit: "spades",
     values: [],
     addCards: addCards,
 }
 let clubsDeck = {
     hasQueen: false,
-    name: "clubs",
+    suit: "clubs",
     values: [],
     addCards: addCards
 }
 let heartsDeck = {
     hasQueen: false,
-    name: "hearts",
+    suit: "hearts",
     values: [],
     addCards: addCards
 }
 let diamondsDeck = {
     hasQueen: false,
-    name: "diamonds",
+    suit: "diamonds",
     values: [],
     addCards: addCards
 }
 
 let deckId = null
-let allQueensFound = spadesDeck.hasQueen && clubsDeck.hasQueen && heartsDeck.hasQueen && diamondsDeck.hasQueen
 
+//network request for getting a new deck using fetch
 const fetchNewDeck = () => {
     fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
     .then(Response => {
@@ -77,13 +77,13 @@ const fetchNewDeck = () => {
     .then(deck => {
         deckId = deck.deck_id
         console.log(deck)
-        console.log(deckId)
         toggleButton('getDeck-btn')
         toggleButton('drawCards-btn')
         showDeckImg()
     })  
 } 
 
+//network request for drawing cards using async await so that it can fetch on a 1 second interval and clear the interval when complete
 const drawCards = () => {
     toggleButton('drawCards-btn')
     toggleLoader('start')
@@ -98,16 +98,26 @@ const drawCards = () => {
     }, 1000);
 }
 
-const placeCards = (cards) => {
-    for (let i = 0; i < cards.length; i++){
-        if(cards[i].suit === 'SPADES'){
-            spadesDeck.addCards(cards[i])
-        } else if(cards[i].suit === 'CLUBS'){
-            clubsDeck.addCards(cards[i]) 
-        } else if(cards[i].suit === 'HEARTS'){
-            heartsDeck.addCards(cards[i]) 
-        } else if(cards[i].suit === 'DIAMONDS'){
-            diamondsDeck.addCards(cards[i]) 
+//function for distributing cards to their respective decks to be sorted and added to the deck values arrays
+const placeCards = cards => {
+    cards.map( card => {
+        if(card.suit === 'SPADES'){
+            spadesDeck.addCards(card)
+        } else if(card.suit === 'CLUBS'){
+            clubsDeck.addCards(card) 
+        } else if(card.suit === 'HEARTS'){
+            heartsDeck.addCards(card) 
+        } else if(card.suit === 'DIAMONDS'){
+            diamondsDeck.addCards(card) 
         }
-    }
+    })
 }
+
+/* Additional considerations: 
+* - There isn't any error handling; this particular API worked easily every time but obviously I would want to catch errors if things were not returned correctly
+* - Using vanilla javascript means creating some functions that would probably have been much easier with a framework like React.
+* - Specifically with how I am populating the arrays of cards in each suit. I would have preferred to map over the array in JSX and dynamically create the elements based on state changes
+* - There is no real state management. 
+* - I don't normally commit console logs but I wanted to visualize the data in the UI but check it against the data coming from my network requests
+* - No testing
+*/
